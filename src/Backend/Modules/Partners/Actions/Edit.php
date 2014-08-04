@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\Partners\Actions;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -7,12 +9,19 @@
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
+use Backend\Core\Engine\Form as BackendForm;
+use Backend\Core\Engine\Language as BL;
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Core\Engine\DataGridDB as BackendDataGridDB;
+use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
+
 /**
  * This action will load a form with the item data and save the changes.
  *
  * @author Jelmer <jelmer@sumocoders.be>
  */
-class BackendPartnersEdit extends BackendBaseActionEdit
+class Edit extends BackendBaseActionEdit
 {
     /**
      * datagrid with partners

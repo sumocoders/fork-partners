@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\Partners;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -7,19 +9,21 @@
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Engine\Base\Config as BackendBaseConfig;
+
 /**
  * Config for the Partners module
  *
  * @author Jelmer Prins <jelmer@sumocoders.be>
  */
-final class BackendPartnersConfig extends BackendBaseConfig
+final class Config extends BackendBaseConfig
 {
     /**
      * The default action
      *
      * @var    string
      */
-    protected $defaultAction = 'index';
+    protected $defaultAction = 'Index';
 
     /**
      * The disabled actions
@@ -27,4 +31,11 @@ final class BackendPartnersConfig extends BackendBaseConfig
      * @var    array
      */
     protected $disabledActions = array();
+
+    /**
+     * The disabled AJAX-actions
+     *
+     * @var	array
+     */
+    protected $disabledAJAXActions = array();
 }

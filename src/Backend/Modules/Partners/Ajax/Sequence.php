@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\Partners\Ajax;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -12,7 +14,11 @@
  *
  * @author Jelmer Prins <jelmer@sumocoders.be>
  */
-class BackendPartnersAjaxSequence extends BackendBaseAJAXAction
+
+use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
+use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
+
+class AjaxSequence extends BackendBaseAJAXAction
 {
     /**
      * Execute the action

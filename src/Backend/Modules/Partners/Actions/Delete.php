@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\Partners\Actions;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -9,12 +11,17 @@
 
 use Symfony\Component\Filesystem\Filesystem;
 
+use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
+use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
+
 /**
  * This action will delete a partner
  *
  * @author Jelmer Prins <jelmer@ubuntu.com>
  */
-class BackendPartnersDelete extends BackendBaseActionDelete
+class Delete extends BackendBaseActionDelete
 {
     /**
      * Execute the action

@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\Partners\Actions;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -14,7 +16,15 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author Jelmer Prins <jelmer@sumocoders.be>
  */
-class BackendPartnersAdd extends BackendBaseActionAdd
+
+use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
+use Backend\Core\Engine\Form as BackendForm;
+use Backend\Core\Engine\Language as BL;
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
+use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
+
+class Add extends BackendBaseActionAdd
 {
     /**
      * Execute the action

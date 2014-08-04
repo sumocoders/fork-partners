@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <locale>
-    <backend>
-        <partners>
+    <Backend>
+        <Partners>
             <item type="label" name="Partners">
                 <translation language="nl"><![CDATA[Partners]]></translation>
                 <translation language="en"><![CDATA[Partners]]></translation>
@@ -26,12 +26,12 @@
                 <translation language="nl"><![CDATA[Er zijn nog geen partners]]></translation>
                 <translation language="en"><![CDATA[There are no partners yet]]></translation>
             </item>
-        </partners>
-        <core>
+        </Partners>
+        <Core>
             <item type="label" name="Partners">
                 <translation language="nl"><![CDATA[Partners]]></translation>
                 <translation language="en"><![CDATA[Partners]]></translation>
             </item>
-        </core>
-    </backend>
+        </Core>
+    </Backend>
 </locale>

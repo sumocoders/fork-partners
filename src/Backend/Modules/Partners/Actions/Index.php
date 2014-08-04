@@ -12,6 +12,12 @@
  *
  * @author Jelmer Prins <jelmer@sumocoders.be>
  */
+use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
+use Backend\Core\Engine\DataGridDB as BackendDataGridDB;
+use Backend\Core\Engine\Language as BL;
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
+
 class BackendPartnersIndex extends BackendBaseActionIndex
 {
     /**

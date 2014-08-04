@@ -1,18 +1,25 @@
 <?php
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
+namespace Backend\Modules\Partners\Engine;
+
+    /*
+     * This file is part of Fork CMS.
+     *
+     * For the full copyright and license information, please view the license
+     * file that was distributed with this source code.
+     */
 
 /**
  * This is the model for the partners module.
  *
  * @author Jelmer Prins <jelmer@sumocoders.be>
  */
-class BackendPartnersModel
+
+use Backend\Core\Engine\Authentication as BackendAuthentication;
+use Backend\Core\Engine\Model as BackendModel;
+use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
+
+class Model
 {
     /**
      * The browse widgets query for the datagrid
@@ -34,6 +41,7 @@ class BackendPartnersModel
     {
         return FRONTEND_FILES_URL . '/' . FrontendPartnersModel::IMAGE_PATH . '/[widget]/48x48';
     }
+
     /**
      * Deletes a partner
      *
@@ -41,7 +49,7 @@ class BackendPartnersModel
      */
     public static function deletePartner($id)
     {
-        BackendModel::getContainer()->get('database')->delete('partners', 'id = ?', array((int)$id));
+        BackendModel::getContainer()->get('database')->delete('partners', 'id = ?', array((int) $id));
     }
 
     /**
@@ -51,7 +59,7 @@ class BackendPartnersModel
      */
     public static function deleteWidgetPartners($widget)
     {
-        BackendModel::getContainer()->get('database')->delete('partners', 'widget = ?', array((int)$widget));
+        BackendModel::getContainer()->get('database')->delete('partners', 'widget = ?', array((int) $widget));
     }
 
     /**
@@ -70,7 +78,7 @@ class BackendPartnersModel
         $db->delete(
             'modules_extras',
             'id = ? AND module = ? AND type = ? AND action = ?',
-            array((int)$widgetId, 'partners', 'widget', 'Slideshow')
+            array((int) $widgetId, 'partners', 'widget', 'Slideshow')
         );
 
         self::deleteWidgetPartners($id);
@@ -187,8 +195,8 @@ class BackendPartnersModel
         $item['created_on'] = BackendModel::getUTCDate();
         $item['edited_on'] = BackendModel::getUTCDate();
         $item['sequence'] = (int) $db->getVar(
-            'SELECT MAX(sequence) FROM partners'
-        ) + 1;
+                'SELECT MAX(sequence) FROM partners'
+            ) + 1;
         // insert and return the new partner id
         $item['id'] = $db->insert(
             'partners',

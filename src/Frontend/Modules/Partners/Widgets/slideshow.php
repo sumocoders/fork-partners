@@ -1,5 +1,7 @@
 <?php
 
+namespace Frontend\Modules\Partners\Widgets;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -7,12 +9,14 @@
  * file that was distributed with this source code.
  */
 
+use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
+use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
 /**
  * This is a widget for the partner slideshow
  *
  * @author Jelmer Prins <jelmer@sumocoders.be>
  */
-class FrontendPartnersWidgetSlideshow extends FrontendBaseWidget
+class Slideshow extends FrontendBaseWidget
 {
     /**
      * Execute the extra

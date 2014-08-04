@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\Partners\Actions;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -9,12 +11,19 @@
 
 use Symfony\Component\Filesystem\Filesystem;
 
+use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
+use Backend\Core\Engine\Form as BackendForm;
+use Backend\Core\Engine\Language as BL;
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
+use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
+
 /**
  * This action will load a form with the item data and save the changes.
  *
  * @author Jelmer <jelmer@sumocoders.be>
  */
-class BackendPartnersEditPartner extends BackendBaseActionEdit
+class EditPartner extends BackendBaseActionEdit
 {
     /**
      * Execute the action
