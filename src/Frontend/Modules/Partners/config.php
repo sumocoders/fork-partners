@@ -1,5 +1,6 @@
 <?php
 
+namespace Frontend\Modules\Partners;
 /*
  * This file is part of Fork CMS.
  *
@@ -7,12 +8,14 @@
  * file that was distributed with this source code.
  */
 
+use Frontend\Core\Engine\Base\Config as FrontendBaseConfig;
+
 /**
  * This is the configuration-object
  *
  * @author Jelmer Prins <jelmer@sumocoders.be>
  */
-final class FrontendPartnersConfig extends FrontendBaseConfig
+final class Config extends FrontendBaseConfig
 {
     /**
      * The default action

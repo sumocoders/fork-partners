@@ -9,14 +9,13 @@ namespace Backend\Modules\Partners\Actions;
  * file that was distributed with this source code.
  */
 
-use Symfony\Component\Filesystem\Filesystem;
-
 use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
 use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Engine\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
 use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * This action will load a form with the item data and save the changes.
@@ -41,9 +40,16 @@ class EditPartner extends BackendBaseActionEdit
             $this->parse();
             $this->display();
         } else {
-            $this->redirect(BackendModel::createURLForAction('index', null, null, array(
-                'error' => 'non-existing'
-            )));
+            $this->redirect(
+                BackendModel::createURLForAction(
+                    'index',
+                    null,
+                    null,
+                    array(
+                        'error' => 'non-existing'
+                    )
+                )
+            );
         }
     }
 
@@ -56,9 +62,16 @@ class EditPartner extends BackendBaseActionEdit
 
         // no item found, redirect to index
         if (empty($this->record)) {
-            $this->redirect(BackendModel::createURLForAction('index', null, null, array(
-                'error' => 'non-existing'
-            )));
+            $this->redirect(
+                BackendModel::createURLForAction(
+                    'index',
+                    null,
+                    null,
+                    array(
+                        'error' => 'non-existing'
+                    )
+                )
+            );
         }
     }
 
@@ -121,7 +134,7 @@ class EditPartner extends BackendBaseActionEdit
                         $basePath . '/source/' . $this->record['img']
                     );
                     $fs->remove(
-                        $basePath  . '/48x48/' . $this->record['img']
+                        $basePath . '/48x48/' . $this->record['img']
                     );
 
                     $item['img'] = md5(microtime(true)) . '.' . $this->frm->getField('img')->getExtension();
@@ -134,12 +147,17 @@ class EditPartner extends BackendBaseActionEdit
 
                 // everything is saved, so redirect to the overview
                 $this->redirect(
-                    BackendModel::createURLForAction('edit', null, null, array(
+                    BackendModel::createURLForAction(
+                        'edit',
+                        null,
+                        null,
+                        array(
                             'id' => $this->record['widget'],
                             'report' => 'added',
-                            'var' => urlencode($item['title']),
+                            'var' => urlencode($item['name']),
                             'highlight' => 'row-' . $item['id']
-                    ))
+                        )
+                    )
                 );
             }
         }

@@ -2,12 +2,12 @@
 
 namespace Backend\Modules\Partners\Ajax;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
+    /*
+     * This file is part of Fork CMS.
+     *
+     * For the full copyright and license information, please view the license
+     * file that was distributed with this source code.
+     */
 
 /**
  * Re-order the partners
@@ -18,7 +18,7 @@ namespace Backend\Modules\Partners\Ajax;
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
 
-class AjaxSequence extends BackendBaseAJAXAction
+class Sequence extends BackendBaseAJAXAction
 {
     /**
      * Execute the action
@@ -26,7 +26,7 @@ class AjaxSequence extends BackendBaseAJAXAction
     public function execute()
     {
         // get parameters
-        $newIdSequence = trim(SpoonFilter::getPostValue('new_id_sequence', null, '', 'string'));
+        $newIdSequence = trim(\SpoonFilter::getPostValue('new_id_sequence', null, '', 'string'));
 
         // list id
         $ids = (array) explode(',', rtrim($newIdSequence, ','));

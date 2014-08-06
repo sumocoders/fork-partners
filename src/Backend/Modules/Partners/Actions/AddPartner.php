@@ -2,12 +2,12 @@
 
 namespace Backend\Modules\Partners\Actions;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
+    /*
+     * This file is part of Fork CMS.
+     *
+     * For the full copyright and license information, please view the license
+     * file that was distributed with this source code.
+     */
 
 /**
  * This action will add a post to the blog module.
@@ -39,9 +39,16 @@ class AddPartner extends BackendBaseActionAdd
         parent::execute();
         $this->widgetId = $this->getParameter('id', 'int');
         if (!BackendPartnersModel::widgetExists($this->widgetId)) {
-            $this->redirect(BackendModel::createURLForAction('index', null, null, array(
-                'error' => 'non-existing'
-            )));
+            $this->redirect(
+                BackendModel::createURLForAction(
+                    'index',
+                    null,
+                    null,
+                    array(
+                        'error' => 'non-existing'
+                    )
+                )
+            );
         }
         $this->loadForm();
         $this->validateForm();
@@ -91,14 +98,18 @@ class AddPartner extends BackendBaseActionAdd
                 // everything is saved, so redirect to the overview
                 $this->redirect(
                     BackendModel::createURLForAction(
-                    'edit', null, null, array(
-                        'id' => $this->widgetId,
-                        'report' => 'added',
-                        'var' => urlencode(
-                            $item['name']
-                        ),
-                        'highlight' => 'row-' . $item['id']
-                    ))
+                        'edit',
+                        null,
+                        null,
+                        array(
+                            'id' => $this->widgetId,
+                            'report' => 'added',
+                            'var' => urlencode(
+                                $item['name']
+                            ),
+                            'highlight' => 'row-' . $item['id']
+                        )
+                    )
                 );
             }
         }

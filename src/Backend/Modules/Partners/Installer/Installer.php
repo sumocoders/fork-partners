@@ -10,8 +10,8 @@ namespace Backend\Modules\Partners\Installer;
  */
 
 use Backend\Core\Installer\ModuleInstaller;
-use Symfony\Component\Filesystem\Filesystem;
 use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * This class will install the partners module.

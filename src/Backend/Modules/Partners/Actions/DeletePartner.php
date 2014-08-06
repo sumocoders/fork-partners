@@ -9,12 +9,12 @@ namespace Backend\Modules\Partners\Actions;
  * file that was distributed with this source code.
  */
 
-use Symfony\Component\Filesystem\Filesystem;
-
 use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
 use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
+use Symfony\Component\Filesystem\Filesystem;
+
 /**
  * This action will delete a partner
  *
@@ -30,9 +30,16 @@ class DeletePartner extends BackendBaseActionDelete
         $this->id = $this->getParameter('id', 'int');
         // does the item exist
         if ($this->id == null || !BackendPartnersModel::partnerExists($this->id)) {
-            $this->redirect(BackendModel::createURLForAction('index', null, null, array(
-                'error' => 'non-existing'
-            )));
+            $this->redirect(
+                BackendModel::createURLForAction(
+                    'index',
+                    null,
+                    null,
+                    array(
+                        'error' => 'non-existing'
+                    )
+                )
+            );
         }
 
         // get data
@@ -43,7 +50,7 @@ class DeletePartner extends BackendBaseActionDelete
 
         //delete the image
         $fs = new Filesystem();
-        $basePath = FRONTEND_FILES_PATH . '/' . FrontendPartnersModel::IMAGE_PATH . '/' .  $this->record['widget'];
+        $basePath = FRONTEND_FILES_PATH . '/' . FrontendPartnersModel::IMAGE_PATH . '/' . $this->record['widget'];
         $fs->remove(
             $basePath . '/source/' . $this->record['img']
         );
@@ -53,11 +60,16 @@ class DeletePartner extends BackendBaseActionDelete
 
         // item was deleted, so redirect
         $this->redirect(
-            BackendModel::createURLForAction('edit', null, null, array(
-                'id' => $this->record['widget'],
-                'report' => 'deleted',
-                'var' => urlencode($this->record['name'])
-            ))
+            BackendModel::createURLForAction(
+                'edit',
+                null,
+                null,
+                array(
+                    'id' => $this->record['widget'],
+                    'report' => 'deleted',
+                    'var' => urlencode($this->record['name'])
+                )
+            )
         );
     }
 }

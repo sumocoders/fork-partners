@@ -10,10 +10,10 @@ namespace Backend\Modules\Partners\Actions;
  */
 
 use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
+use Backend\Core\Engine\DataGridDB as BackendDataGridDB;
 use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Engine\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Engine\DataGridDB as BackendDataGridDB;
 use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
 
 /**
@@ -47,9 +47,16 @@ class Edit extends BackendBaseActionEdit
             $this->parse();
             $this->display();
         } else {
-            $this->redirect(BackendModel::createURLForAction('index', null, null, array(
-                'error' => 'non-existing'
-            )));
+            $this->redirect(
+                BackendModel::createURLForAction(
+                    'index',
+                    null,
+                    null,
+                    array(
+                        'error' => 'non-existing'
+                    )
+                )
+            );
         }
     }
 
@@ -62,9 +69,16 @@ class Edit extends BackendBaseActionEdit
 
         // no item found, redirect to index
         if (empty($this->record)) {
-            $this->redirect(BackendModel::createURLForAction('index', null, null, array(
-                'error' => 'non-existing'
-            )));
+            $this->redirect(
+                BackendModel::createURLForAction(
+                    'index',
+                    null,
+                    null,
+                    array(
+                        'error' => 'non-existing'
+                    )
+                )
+            );
         }
     }
 
@@ -98,14 +112,20 @@ class Edit extends BackendBaseActionEdit
         // set colum URLs
         $dg->setColumnURL(
             'name',
-            BackendModel::createURLForAction('edit-partner', null, null, array(
-                'id' => '[id]'
-            ))
+            BackendModel::createURLForAction(
+                'EditPartner',
+                null,
+                null,
+                array(
+                    'id' => '[id]'
+                ),
+                false
+            )
         );
 
         // set column function
         $dg->setColumnFunction(
-            array('BackendDataGridFunctions', 'showImage'),
+            array('Backend\Core\Engine\DataGridFunctions', 'showImage'),
             array(BackendPartnersModel::getImageDirectory(), '[img]'),
             'img',
             true
@@ -116,9 +136,15 @@ class Edit extends BackendBaseActionEdit
             'edit',
             null,
             BL::lbl('Edit'),
-            BackendModel::createURLForAction('edit_partner', null, null, array(
-                'id' => '[id]'
-            )),
+            BackendModel::createURLForAction(
+                'EditPartner',
+                null,
+                null,
+                array(
+                    'id' => '[id]'
+                ),
+                false
+            ),
             BL::lbl('Edit')
         );
         $dg->enableSequenceByDragAndDrop();
@@ -163,13 +189,19 @@ class Edit extends BackendBaseActionEdit
 
                 // everything is saved, so redirect to the overview
                 $this->redirect(
-                    BackendModel::createURLForAction('index', null, null, array(
-                        'report' => 'edited',
-                        'var' => urlencode(
-                            $item['title']
+                    BackendModel::createURLForAction(
+                        'index',
+                        null,
+                        null,
+                        array(
+                            'report' => 'edited',
+                            'var' => urlencode(
+                                $item['name']
+                            ),
+                            'highlight' => 'row-' . $item['id']
                         ),
-                        'highlight' => 'row-' . $item['id']
-                    ))
+                        false
+                    )
                 );
             }
         }

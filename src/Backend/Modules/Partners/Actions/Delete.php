@@ -9,12 +9,11 @@ namespace Backend\Modules\Partners\Actions;
  * file that was distributed with this source code.
  */
 
-use Symfony\Component\Filesystem\Filesystem;
-
 use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
 use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * This action will delete a partner
@@ -32,9 +31,16 @@ class Delete extends BackendBaseActionDelete
 
         // does the item exist
         if ($this->id == null || !BackendPartnersModel::widgetExists($this->id)) {
-            $this->redirect(BackendModel::createURLForAction('index', null, null, array(
-                'error' => 'non-existing'
-            )));
+            $this->redirect(
+                BackendModel::createURLForAction(
+                    'index',
+                    null,
+                    null,
+                    array(
+                        'error' => 'non-existing'
+                    )
+                )
+            );
         }
 
         // get data
@@ -51,12 +57,17 @@ class Delete extends BackendBaseActionDelete
 
         // item was deleted, so redirect
         $this->redirect(
-            BackendModel::createURLForAction('index', null, null, array(
-                'report' => 'deleted',
-                'var' => urlencode(
-                    $this->record['name']
+            BackendModel::createURLForAction(
+                'index',
+                null,
+                null,
+                array(
+                    'report' => 'deleted',
+                    'var' => urlencode(
+                        $this->record['name']
+                    )
                 )
-            ))
+            )
         );
     }
 }

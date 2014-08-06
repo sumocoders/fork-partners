@@ -2,12 +2,12 @@
 
 namespace Backend\Modules\Partners\Actions;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
+    /*
+     * This file is part of Fork CMS.
+     *
+     * For the full copyright and license information, please view the license
+     * file that was distributed with this source code.
+     */
 
 /**
  * This is the index-action (default), it will display the overview of partners
@@ -58,9 +58,15 @@ class Index extends BackendBaseActionIndex
         // set colum URLs
         $dg->setColumnURL(
             'name',
-            BackendModel::createURLForAction('edit', null, null, array(
-                'id' => '[id]'
-            ))
+            BackendModel::createURLForAction(
+                'edit',
+                null,
+                null,
+                array(
+                    'id' => '[id]'
+                ),
+                false
+            )
         );
 
         // add edit column
@@ -68,9 +74,15 @@ class Index extends BackendBaseActionIndex
             'edit',
             null,
             BL::lbl('Edit'),
-            BackendModel::createURLForAction('edit', null, null, array(
-                'id' => '[id]'
-            )),
+            BackendModel::createURLForAction(
+                'edit',
+                null,
+                null,
+                array(
+                    'id' => '[id]'
+                ),
+                false
+            ),
             BL::lbl('Edit')
         );
 

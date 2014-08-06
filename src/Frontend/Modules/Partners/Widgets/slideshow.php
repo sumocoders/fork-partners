@@ -11,6 +11,7 @@ namespace Frontend\Modules\Partners\Widgets;
 
 use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
 use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
+
 /**
  * This is a widget for the partner slideshow
  *
