@@ -50,9 +50,9 @@ class Installer extends ModuleInstaller
             'partners/index',
             array(
                 'partners/add',
-                'partners/add_partner',
+                'partners/addPartner',
                 'partners/edit',
-                'partners/edit_partner',
+                'partners/editPartner',
                 'partners/index'
             )
         );

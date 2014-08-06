@@ -256,7 +256,7 @@ class Model
 
         // build query
         $query = 'SELECT id FROM modules_extras WHERE module = ? AND type = ? AND label = ?  AND data = ?';
-        $parameters = array($widget['module'], $widget['type'], $widget['label'], $data);
+        $parameters = array($widget['module'], $widget['type'], $widget['label'], $widget['data']);
 
         // get id (if its already exists)
         $widgetId = (int) $db->getVar($query, $parameters);

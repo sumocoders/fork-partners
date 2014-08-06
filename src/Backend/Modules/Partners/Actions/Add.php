@@ -9,6 +9,12 @@ namespace Backend\Modules\Partners\Actions;
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
+use Backend\Core\Engine\Form as BackendForm;
+use Backend\Core\Engine\Language as BL;
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
+use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -16,14 +22,6 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author Jelmer Prins <jelmer@sumocoders.be>
  */
-
-use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Engine\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
-use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
-
 class Add extends BackendBaseActionAdd
 {
     /**
@@ -73,9 +71,14 @@ class Add extends BackendBaseActionAdd
 
                 // everything is saved, so redirect to the overview
                 $this->redirect(
-                    BackendModel::createURLForAction('edit', null, null, array(
-                        'id' => $item['id']
-                    ))
+                    BackendModel::createURLForAction(
+                        'edit',
+                        null,
+                        null,
+                        array(
+                            'id' => $item['id']
+                        )
+                    )
                 );
             }
         }

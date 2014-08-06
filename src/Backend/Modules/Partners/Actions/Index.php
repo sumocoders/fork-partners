@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\Partners\Actions;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -18,7 +20,7 @@ use Backend\Core\Engine\Language as BL;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
 
-class BackendPartnersIndex extends BackendBaseActionIndex
+class Index extends BackendBaseActionIndex
 {
     /**
      * datagrid with partners
