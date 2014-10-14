@@ -248,8 +248,8 @@ class Model
         $widget = array(
             'module' => 'partners',
             'type' => 'widget',
-            'label' => 'slideshow',
-            'action' => 'Slideshow',
+            'label' => 'Slideshow',
+            'action' => 'slideshow',
             'data' => serialize($data),
             'sequence' => $sequence
         );
@@ -322,8 +322,8 @@ class Model
         $widget = array(
             'module' => 'partners',
             'type' => 'widget',
-            'label' => 'slideshow',
-            'action' => 'Slideshow',
+            'label' => 'Slideshow',
+            'action' => 'slideshow',
             'data' => serialize($data)
         );
 
