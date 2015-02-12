@@ -241,7 +241,7 @@ class Model
         }
 
         $data = array();
-        $data['partners_widget_id'] = $item['id'];
+        $data['id'] = $item['id'];
         $data['extra_label'] = $item['name'];
 
         // build widget
@@ -315,7 +315,7 @@ class Model
         );
 
         $data = array();
-        $data['partners_widget_id'] = $item['id'];
+        $data['id'] = $item['id'];
         $data['extra_label'] = $item['name'];
 
         // build widget
