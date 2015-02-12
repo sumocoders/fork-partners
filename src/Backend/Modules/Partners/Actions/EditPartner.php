@@ -81,11 +81,11 @@ class EditPartner extends BackendBaseActionEdit
     private function loadForm()
     {
         $this->frm = new BackendForm('edit');
-        $this->frm->addText('name', $this->record['name'], 255, 'inputText name', 'inputTextError name')->setAttribute(
+        $this->frm->addText('name', $this->record['name'], 255, 'inputText title', 'inputTextError title')->setAttribute(
             'required'
         );
         $this->frm->addImage('img', 'inputImage img', 'inputImageError img')->setAttribute('required');
-        $this->frm->addText('url', $this->record['url'], 255, 'inputText url', 'inputTextError url')->setAttributes(
+        $this->frm->addText('url', $this->record['url'], 255, 'inputText title', 'inputTextError title')->setAttributes(
             array('type' => 'url', 'required')
         );
     }
