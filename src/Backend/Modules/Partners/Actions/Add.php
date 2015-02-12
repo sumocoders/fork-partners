@@ -44,7 +44,7 @@ class Add extends BackendBaseActionAdd
     private function loadForm()
     {
         $this->frm = new BackendForm('add');
-        $this->frm->addText('name', null, 255, 'inputText name', 'inputTextError name')->setAttribute('required');
+        $this->frm->addText('name', null, 255, 'inputText title', 'inputTextError title')->setAttribute('required');
     }
 
     /**
