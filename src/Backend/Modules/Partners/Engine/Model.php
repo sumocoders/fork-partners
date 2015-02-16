@@ -249,7 +249,7 @@ class Model
             'module' => 'Partners',
             'type' => 'widget',
             'label' => 'Slideshow',
-            'action' => 'slideshow',
+            'action' => 'Slideshow',
             'data' => serialize($data),
             'sequence' => $sequence
         );
@@ -323,7 +323,7 @@ class Model
             'module' => 'Partners',
             'type' => 'widget',
             'label' => 'Slideshow',
-            'action' => 'slideshow',
+            'action' => 'Slideshow',
             'data' => serialize($data)
         );
 
