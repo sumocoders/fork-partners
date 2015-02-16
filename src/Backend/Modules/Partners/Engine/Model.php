@@ -93,7 +93,7 @@ class Model
     public static function getPartner($id)
     {
         return (array) BackendModel::getContainer()->get('database')->getRecord(
-            'SELECT i.id, i.name, i.text, i.img, i.widget, i.url, i.created_by, i.created_on, i.edited_on
+            'SELECT i.id, i.name, i.img, i.widget, i.url, i.created_by, i.created_on, i.edited_on
              FROM partners AS i
              WHERE i.id = ?
              LIMIT 1',
