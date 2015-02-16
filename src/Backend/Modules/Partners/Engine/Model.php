@@ -78,7 +78,7 @@ class Model
         $db->delete(
             'modules_extras',
             'id = ? AND module = ? AND type = ? AND action = ?',
-            array((int) $widgetId, 'partners', 'widget', 'Slideshow')
+            array((int) $widgetId, 'Partners', 'widget', 'Slideshow')
         );
 
         self::deleteWidgetPartners($id);
@@ -93,7 +93,7 @@ class Model
     public static function getPartner($id)
     {
         return (array) BackendModel::getContainer()->get('database')->getRecord(
-            'SELECT i.id, i.name, i.img, i.widget, i.url, i.created_by, i.created_on, i.edited_on
+            'SELECT i.id, i.name, i.text, i.img, i.widget, i.url, i.created_by, i.created_on, i.edited_on
              FROM partners AS i
              WHERE i.id = ?
              LIMIT 1',
@@ -195,8 +195,8 @@ class Model
         $item['created_on'] = BackendModel::getUTCDate();
         $item['edited_on'] = BackendModel::getUTCDate();
         $item['sequence'] = (int) $db->getVar(
-                'SELECT MAX(sequence) FROM partners'
-            ) + 1;
+            'SELECT MAX(sequence) FROM partners'
+        ) + 1;
         // insert and return the new partner id
         $item['id'] = $db->insert(
             'partners',
@@ -246,7 +246,7 @@ class Model
 
         // build widget
         $widget = array(
-            'module' => 'partners',
+            'module' => 'Partners',
             'type' => 'widget',
             'label' => 'Slideshow',
             'action' => 'slideshow',
@@ -320,7 +320,7 @@ class Model
 
         // build widget
         $widget = array(
-            'module' => 'partners',
+            'module' => 'Partners',
             'type' => 'widget',
             'label' => 'Slideshow',
             'action' => 'slideshow',
