@@ -78,7 +78,7 @@ class Model
         $db->delete(
             'modules_extras',
             'id = ? AND module = ? AND type = ? AND action = ?',
-            array((int) $widgetId, 'partners', 'widget', 'Slideshow')
+            array((int) $widgetId, 'Partners', 'widget', 'Slideshow')
         );
 
         self::deleteWidgetPartners($id);
@@ -195,8 +195,8 @@ class Model
         $item['created_on'] = BackendModel::getUTCDate();
         $item['edited_on'] = BackendModel::getUTCDate();
         $item['sequence'] = (int) $db->getVar(
-                'SELECT MAX(sequence) FROM partners'
-            ) + 1;
+            'SELECT MAX(sequence) FROM partners'
+        ) + 1;
         // insert and return the new partner id
         $item['id'] = $db->insert(
             'partners',
@@ -241,15 +241,15 @@ class Model
         }
 
         $data = array();
-        $data['partners_widget_id'] = $item['id'];
+        $data['id'] = $item['id'];
         $data['extra_label'] = $item['name'];
 
         // build widget
         $widget = array(
-            'module' => 'partners',
+            'module' => 'Partners',
             'type' => 'widget',
             'label' => 'Slideshow',
-            'action' => 'slideshow',
+            'action' => 'Slideshow',
             'data' => serialize($data),
             'sequence' => $sequence
         );
@@ -315,15 +315,15 @@ class Model
         );
 
         $data = array();
-        $data['partners_widget_id'] = $item['id'];
+        $data['id'] = $item['id'];
         $data['extra_label'] = $item['name'];
 
         // build widget
         $widget = array(
-            'module' => 'partners',
+            'module' => 'Partners',
             'type' => 'widget',
             'label' => 'Slideshow',
-            'action' => 'slideshow',
+            'action' => 'Slideshow',
             'data' => serialize($data)
         );
 

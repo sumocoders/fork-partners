@@ -6,23 +6,41 @@
 </div>
 
 {form:add}
-    <p>
-        <label for="name">{$lblName|ucfirst}<abbr>*</abbr></label>
-        {$txtName} {$txtNameError}
-    </p>
-    <p>
-        <label for="img">{$lblImage|ucfirst}<abbr>*</abbr></label>
-        {$fileImg} {$fileImgError}
-    </p>
-    <p>
-        <label for="url">{$lblWebsite|ucfirst}<abbr>*</abbr></label>
-        {$txtUrl} {$txtUrlError}
-    </p>
-    <div class="fullwidthOptions">
-        <div class="buttonHolderRight">
-            <input id="addButton" class="inputButton button mainButton" type="submit" name="add" value="{$lblAdd|ucfirst}" />
-        </div>
+<div class="box">
+    <div class="heading">
+        <h3>
+            <label for="name">{$lblName|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
+        </h3>
     </div>
+    <div class="options">
+        {$txtName} {$txtNameError}
+    </div>
+</div>
+<div class="box">
+    <div class="heading">
+        <h3>
+            <label for="img">{$lblImage|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
+        </h3>
+    </div>
+    <div class="options">
+        {$fileImg} {$fileImgError}
+    </div>
+</div>
+<div class="box">
+    <div class="heading">
+        <h3>
+            <label for="url">{$lblWebsite|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
+        </h3>
+    </div>
+    <div class="options">
+        {$txtUrl} {$txtUrlError}
+    </div>
+</div>
+<div class="fullwidthOptions">
+    <div class="buttonHolderRight">
+        <input id="addButton" class="inputButton button mainButton" type="submit" name="add" value="{$lblAdd|ucfirst}" />
+    </div>
+</div>
 {/form:add}
 
 {include:{$BACKEND_CORE_PATH}/Layout/Templates/StructureEndModule.tpl}
