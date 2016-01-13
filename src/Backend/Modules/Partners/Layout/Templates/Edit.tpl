@@ -30,6 +30,11 @@
     {/option:dgPartners}
     {option:!dgPartners}
     <div class="options">
+        <a href="{$var|geturl:'add_partner'}&amp;id={$item.id}" class="button inputButton icon iconAdd">
+            <span>{$lblAddPartner|ucfirst}</span>
+        </a>
+    </div>
+    <div class="options">
         {option:!dgPartners}<p>{$msgNoPartners}</p>{/option:!dgPartners}
     </div>
     {/option:!dgPartners}
@@ -47,9 +52,6 @@
     </div>
     <div class="buttonHolderRight">
         <input id="editButton" class="inputButton button mainButton" type="submit" name="edit" value="{$lblSave|ucfirst}" />
-        <a href="{$var|geturl:'add_partner'}&amp;id={$item.id}" class="button inputButton icon iconAdd">
-            <span>{$lblAddPartner|ucfirst}</span>
-        </a>
     </div>
 </div>
 {/form:edit}
