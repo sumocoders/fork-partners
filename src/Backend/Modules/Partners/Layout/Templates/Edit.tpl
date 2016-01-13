@@ -23,6 +23,11 @@
             {$lblPartners}
         </h3>
     </div>
+    <div class="options">
+        <a href="{$var|geturl:'add_partner'}&amp;id={$item.id}" class="button inputButton icon iconAdd">
+            <span>{$lblAddPartner|ucfirst}</span>
+        </a>
+    </div>
     {option:dgPartners}
     <div class="optionsRTE">
         <div class="dataGridHolder">{$dgPartners}</div>
@@ -30,12 +35,7 @@
     {/option:dgPartners}
     {option:!dgPartners}
     <div class="options">
-        <a href="{$var|geturl:'add_partner'}&amp;id={$item.id}" class="button inputButton icon iconAdd">
-            <span>{$lblAddPartner|ucfirst}</span>
-        </a>
-    </div>
-    <div class="options">
-        {option:!dgPartners}<p>{$msgNoPartners}</p>{/option:!dgPartners}
+        <p>{$msgNoPartners}</p>
     </div>
     {/option:!dgPartners}
 </div>
