@@ -1,0 +1,36 @@
+{% extends '/Layout/Templates/base.html.twig' %}
+
+{% block content %}
+  {% form add %}
+    <div class="row fork-module-content">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <p>{{ 'lbl.Name'|trans|ucfirst }}
+            <abbr data-toggle="tooltip" title="{{ 'lbl.RequiredField'|trans|ucfirst }}">*</abbr></p>
+          </div>
+          <div class="panel-body">
+            {% form_field name %}
+          </div>
+          {% if txtnameError %}
+          <div class="panel-footer">
+            {% form_field_error name %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row fork-module-actions">
+      <div class="col-md-12">
+        <div class="btn-toolbar">
+          <div class="btn-group pull-right" role="group">
+            <button id="addButton" type="submit" name="add" class="btn btn-primary">
+              <span class="fa fa-plus-square"></span>&nbsp;
+              {{ 'lbl.Add'|trans|ucfirst }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endform %}
+{% endblock %}

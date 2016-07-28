@@ -1,0 +1,94 @@
+{% extends '/Layout/Templates/base.html.twig' %}
+
+{% block content %}
+  {% form edit %}
+    <div class="row fork-module-content">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <p>{{ 'lbl.Name'|trans|ucfirst }}
+            <abbr data-toggle="tooltip" title="{{ 'lbl.RequiredField'|trans|ucfirst }}">*</abbr></p>
+          </div>
+          <div class="panel-body">
+            {% form_field name %}
+          </div>
+          {% if txtnameError %}
+          <div class="panel-footer">
+            {% form_field_error name %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <p>{{ 'lbl.Image'|trans|ucfirst }}
+          </div>
+          <div class="panel-body">
+            <img src="{{ FRONTEND_FILES_URL }}/partners/{{ item.widget }}/48x48/{{ item.img }}">
+            <hr/>
+            {% form_field img %}
+          </div>
+          {% if txtimgError %}
+          <div class="panel-footer">
+            {% form_field_error img %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <p>{{ 'lbl.Website'|trans|ucfirst }}
+            <abbr data-toggle="tooltip" title="{{ 'lbl.RequiredField'|trans|ucfirst }}">*</abbr></p>
+          </div>
+          <div class="panel-body">
+            {% form_field url %}
+          </div>
+          {% if txturlError %}
+          <div class="panel-footer">
+            {% form_field_error url %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  <div class="row fork-page-actions">
+    <div class="col-md-12">
+      <div class="btn-toolbar">
+        <div class="btn-group pull-left" role="group">
+          {% if showAgendaDelete %}
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete">
+              <span class="fa fa-trash-o"></span>
+              {{ 'lbl.Delete'|trans|ucfirst }}
+            </button>
+          {% endif %}
+        </div>
+        <div class="btn-group pull-right" role="group">
+          <button id="editButton" type="submit" name="edit" class="btn btn-primary">
+            <span class="fa fa-floppy-o"></span>{{ 'lbl.Save'|trans|ucfirst }}
+          </button>
+        </div>
+      </div>
+      {% if showAgendaDelete %}
+        <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="{{ 'lbl.Delete'|trans|ucfirst }}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <span class="modal-title h4">{{ 'lbl.Delete'|trans|ucfirst }}</span>
+              </div>
+              <div class="modal-body">
+                <p>{{ 'msg.ConfirmDelete'|trans|format(title)|raw }}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                  <span class="fa fa-times"></span>{{ 'lbl.Cancel'|trans|ucfirst }}
+                </button>
+                <a href="{{ geturl('delete') }}&amp;id={{ id }}" class="btn btn-danger">
+                  <span class="fa fa-trash"></span>{{ 'lbl.Delete'|trans|ucfirst }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endform %}
+{% endblock %}

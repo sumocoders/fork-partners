@@ -1,0 +1,19 @@
+{#
+  variables that are available:
+  - {partners}
+#}
+<section id="blogRecentCommentsWidget" class="mod">
+  <div class="inner">
+    {% if partners %}
+      <ul class="bxslider">
+        {% for partner in partners %}
+          <li>
+            <a href="{{ partner.url }}">
+              <img src="{{ FRONTEND_FILES_URL }}/partners/{{ partner.widget }}/48x48/{{ partner.img }}" alt="{{ partner.name }}" />
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</section>
