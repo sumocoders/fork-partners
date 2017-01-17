@@ -9,7 +9,7 @@
         {% for partner in partners %}
           <li>
             <a href="{{ partner.url }}">
-              <img src="{{ FRONTEND_FILES_URL }}/partners/{{ partner.widget }}/48x48/{{ partner.img }}" alt="{{ partner.name }}" />
+              <img src="{{ partner.image.webPath('source') }}" alt="{{ partner.name }}" />
             </a>
           </li>
         {% endfor %}
