@@ -1,0 +1,61 @@
+{% block partner_widget %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      {{ form_label(form.name) }}
+    </div>
+    <div class="panel-body">
+      {{ form_widget(form.name) }}
+    </div>
+    {% if form.name.vars.errors|length %}
+      <div class="panel-footer">
+        {{ form_errors(form.name) }}
+      </div>
+    {% endif %}
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      {{ form_label(form.url) }}
+    </div>
+    <div class="panel-body">
+      {{ form_widget(form.url) }}
+    </div>
+    {% if form.url.vars.errors|length %}
+      <div class="panel-footer">
+        {{ form_errors(form.url) }}
+      </div>
+    {% endif %}
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      {{ form_label(form.image) }}
+    </div>
+    <div class="panel-body">
+      {{ form_widget(form.image) }}
+    </div>
+    {% if form.image.vars.errors|length %}
+      <div class="panel-footer">
+        {{ form_errors(form.image) }}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block widget_widget %}
+  <div class="fork-module-content">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{ form_label(form.title) }}
+      </div>
+      <div class="panel-body">
+        {{ form_widget(form.title) }}
+      </div>
+      {% if form.title.vars.errors|length %}
+        <div class="panel-footer">
+          {{ form_errors(form.title) }}
+        </div>
+      {% endif %}
+    </div>
+
+    {{ form_row(form.partners) }}
+  </div>
+{% endblock %}
