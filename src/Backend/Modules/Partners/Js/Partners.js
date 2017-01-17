@@ -17,9 +17,9 @@
  */
 
 ;
-(function ($) {
+(function($) {
 
-    $.fn.collection = function (options) {
+    $.fn.collection = function(options) {
 
         /**
          * DEFAULT OPTIONS
@@ -29,15 +29,15 @@
             container: 'body',
             allow_up: true,
             up: '<a href="#">&#x25B2;</a>',
-            before_up: function (collection, element) {
+            before_up: function(collection, element) {
                 return true;
             },
-            after_up: function (collection, element) {
+            after_up: function(collection, element) {
                 return true;
             },
             allow_down: true,
             down: '<a href="#">&#x25BC;</a>',
-            before_down: function (collection, element) {
+            before_down: function(collection, element) {
                 return true;
             },
             after_down: function(collection, element) {
@@ -551,10 +551,21 @@
 (function($) {
     $(function() {
         var $partnersCollection = $('[data-collection=partners]');
+        var updateSequence = function() {
+            $('[data-sequence=partner]').each(function(k) {
+                $(this).val(k);
+                console.log($(this).attr('name'), $(this).val());
+            });
+        };
         if ($partnersCollection.length > 0) {
             $partnersCollection.collection({
                 add_at_the_end: true,
-                custom_add_location: true
+                custom_add_location: true,
+                drag_drop_update: updateSequence,
+                after_up: updateSequence,
+                after_down: updateSequence,
+                after_add: updateSequence,
+                after_remove: updateSequence
             });
         }
     });

@@ -24,6 +24,11 @@ class PartnerDataTransferObject
     public $name;
 
     /**
+     * @var int
+     */
+    public $sequence = 0;
+
+    /**
      * @var string
      *
      * @Assert\NotBlank(message="err.FieldIsRequired")
@@ -42,6 +47,7 @@ class PartnerDataTransferObject
             return;
         }
 
+        $this->sequence = $partner->getSequence();
         $this->image = $partner->getImage();
         $this->name = $partner->getName();
         $this->url = $partner->getUrl();

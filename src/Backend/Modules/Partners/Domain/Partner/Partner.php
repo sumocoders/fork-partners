@@ -22,6 +22,13 @@ final class Partner
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $sequence;
+
+    /**
      * @var Image
      *
      * @ORM\Column(type="partners_partner_image")
@@ -52,24 +59,14 @@ final class Partner
 
     /**
      * @param Image $image
+     * @param int $sequence
      * @param string $name
      * @param string $url
      */
-    public function __construct(Widget $widget, Image $image, $name, $url)
+    public function __construct(Widget $widget, $sequence, Image $image, $name, $url)
     {
         $this->widget = $widget;
-        $this->image = $image;
-        $this->name = $name;
-        $this->url = $url;
-    }
-
-    /**
-     * @param Image $image
-     * @param string $name
-     * @param string $url
-     */
-    public function update(Image $image, $name, $url)
-    {
+        $this->sequence = $sequence;
         $this->image = $image;
         $this->name = $name;
         $this->url = $url;
@@ -105,6 +102,14 @@ final class Partner
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSequence()
+    {
+        return $this->sequence;
     }
 
     /**
@@ -161,12 +166,14 @@ final class Partner
             $partner->image = $partnerDataTransferObject->image;
             $partner->name = $partnerDataTransferObject->name;
             $partner->url = $partnerDataTransferObject->url;
+            $partner->sequence = $partnerDataTransferObject->sequence;
 
             return $partner;
         }
 
         $partner = new self(
             $widget,
+            $partnerDataTransferObject->sequence,
             $partnerDataTransferObject->image,
             $partnerDataTransferObject->name,
             $partnerDataTransferObject->url

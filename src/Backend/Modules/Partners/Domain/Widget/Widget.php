@@ -48,6 +48,7 @@ final class Widget
      *     mappedBy="widget",
      *     orphanRemoval=true, cascade={"persist"}
      * )
+     * @ORM\OrderBy({"sequence" = "ASC"})
      */
     private $partners;
 
@@ -58,14 +59,6 @@ final class Widget
     {
         $this->title = $title;
         $this->partners = new ArrayCollection();
-    }
-
-    /**
-     * @param string $title
-     */
-    public function update($title)
-    {
-        $this->title = $title;
     }
 
     /**

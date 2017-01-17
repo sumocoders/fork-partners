@@ -4,6 +4,7 @@ namespace Backend\Modules\Partners\Domain\Partner;
 
 use Backend\Form\Type\ImageType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,6 +23,14 @@ class PartnerType extends AbstractType
             TextType::class,
             [
                 'label' => 'lbl.Name',
+            ]
+        )->add(
+            'sequence',
+            HiddenType::class,
+            [
+                'attr' => [
+                    'data-sequence' => 'partner'
+                ]
             ]
         )->add(
             'image',
