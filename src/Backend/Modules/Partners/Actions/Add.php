@@ -2,85 +2,40 @@
 
 namespace Backend\Modules\Partners\Actions;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
+use Backend\Core\Engine\Base\ActionAdd;
+use Backend\Core\Engine\Model;
+use Backend\Core\Language\Language;
+use Backend\Modules\Partners\Domain\Partner\PartnerType;
+use Backend\Modules\Partners\Domain\Partner\Command\CreatePartner;
+use Backend\Modules\Partners\Domain\Widget\Command\CreateWidget;
+use Backend\Modules\Partners\Domain\Widget\WidgetType;
 
-use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Engine\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
-use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
-use Symfony\Component\Filesystem\Filesystem;
-
-/**
- * This action will add a widget to the partners module.
- *
- * @author Jelmer Prins <jelmer@sumocoders.be>
- */
-class Add extends BackendBaseActionAdd
+class Add extends ActionAdd
 {
-    /**
-     * Execute the action
-     */
     public function execute()
     {
         parent::execute();
+        $createWidget = new CreateWidget();
+        $form = $this->createForm(WidgetType::class, $createWidget);
+        $form->handleRequest($this->get('request'));
+        if (!$form->isValid()) {
+            $this->tpl->assign('form', $form->createView());
+            $this->display();
 
-        $this->loadForm();
-        $this->validateForm();
-
-        $this->parse();
-        $this->display();
-    }
-
-    /**
-     * Load the form
-     */
-    private function loadForm()
-    {
-        $this->frm = new BackendForm('add');
-        $this->frm->addText('name', null, 255, 'inputText title', 'inputTextError title')->setAttribute('required');
-    }
-
-    /**
-     * Validate the form
-     */
-    private function validateForm()
-    {
-        if ($this->frm->isSubmitted()) {
-            $this->frm->cleanupFields();
-
-            // validation
-            $this->frm->getField('name')->isFilled(BL::err('NameIsRequired'));
-
-            // no errors?
-            if ($this->frm->isCorrect()) {
-                $item['name'] = $this->frm->getField('name')->getValue();
-                $item['id'] = BackendPartnersModel::insertWidget($item);
-
-                //create img dir
-                $fs = new Filesystem();
-                $fs->mkdir(
-                    FRONTEND_FILES_PATH . '/' . FrontendPartnersModel::IMAGE_PATH . '/' . $item['id'] . '/48x48'
-                );
-
-                // everything is saved, so redirect to the overview
-                $this->redirect(
-                    BackendModel::createURLForAction(
-                        'edit',
-                        null,
-                        null,
-                        array(
-                            'id' => $item['id']
-                        )
-                    )
-                );
-            }
+            return;
         }
+        $this->get('command_bus')->handle($form->getData());
+
+        return $this->redirect(
+            Model::createURLForAction(
+                'Index',
+                null,
+                null,
+                [
+                    'report' => 'added',
+                    'var' => $createWidget->title,
+                ]
+            )
+        );
     }
 }
