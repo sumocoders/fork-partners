@@ -16,8 +16,8 @@ class WidgetDataGrid extends DataGridDB
              FROM PartnersWidget w'
         );
 
-        if (Authentication::isAllowedAction('EditWidget')) {
-            $editUrl = Model::createURLForAction('EditWidget', null, null, ['id' => '[id]'], false);
+        if (Authentication::isAllowedAction('Edit')) {
+            $editUrl = Model::createURLForAction('Edit', null, null, ['id' => '[id]'], false);
             $this->setColumnURL('title', $editUrl);
             $this->addColumn('edit', null, Language::lbl('Edit'), $editUrl, Language::lbl('Edit'));
         }
