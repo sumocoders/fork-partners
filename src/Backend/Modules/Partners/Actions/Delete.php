@@ -2,71 +2,33 @@
 
 namespace Backend\Modules\Partners\Actions;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
+use Backend\Core\Engine\Base\ActionDelete;
+use Backend\Core\Engine\Model;
+use Backend\Modules\Partners\Domain\Widget\Widget;
+use Backend\Modules\Partners\Domain\Widget\Command\DeleteWidget;
 
-use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
-use Frontend\Modules\Partners\Engine\Model as FrontendPartnersModel;
-use Symfony\Component\Filesystem\Filesystem;
-
-/**
- * This action will delete a partner
- *
- * @author Jelmer Prins <jelmer@ubuntu.com>
- */
-class Delete extends BackendBaseActionDelete
+class Delete extends ActionDelete
 {
-    /**
-     * Execute the action
-     */
     public function execute()
     {
-        $this->id = $this->getParameter('id', 'int');
-
-        // does the item exist
-        if ($this->id == null || !BackendPartnersModel::widgetExists($this->id)) {
-            $this->redirect(
-                BackendModel::createURLForAction(
-                    'index',
-                    null,
-                    null,
-                    array(
-                        'error' => 'non-existing'
-                    )
-                )
-            );
-        }
-
-        // get data
-        $this->record = BackendPartnersModel::getWidget($this->id);
-
-        // delete item
-        BackendPartnersModel::deleteWidget($this->record['id'], $this->record['widget_id']);
-
-        // delete files
-        $fs = new Filesystem();
-        $fs->remove(
-            FRONTEND_FILES_PATH . '/' . FrontendPartnersModel::IMAGE_PATH . '/' . $this->id
+        $widget = $this->get('partners.repository.widget')->find(
+            $this->getParameter('id', 'int')
         );
 
-        // item was deleted, so redirect
-        $this->redirect(
-            BackendModel::createURLForAction(
-                'index',
+        if (!$widget instanceof Widget) {
+            return $this->redirect(Model::createURLForAction('Index', null, null, ['error' => 'non-existing']));
+        }
+        $this->get('command_bus')->handle(new DeleteWidget($widget));
+
+        return $this->redirect(
+            Model::createURLForAction(
+                'Index',
                 null,
                 null,
-                array(
+                [
                     'report' => 'deleted',
-                    'var' => urlencode(
-                        $this->record['name']
-                    )
-                )
+                    'var' => $widget->getTitle(),
+                ]
             )
         );
     }

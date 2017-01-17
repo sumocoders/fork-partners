@@ -71,6 +71,14 @@ final class Widget
     }
 
     /**
+     * @ORM\PostRemove
+     */
+    public function deleteWidget()
+    {
+        Model::deleteExtraById($this->widgetId, true);
+    }
+
+    /**
      * @ORM\PostUpdate
      * @ORM\PostPersist
      */
