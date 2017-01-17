@@ -1,5 +1,19 @@
 doctrine:
   dbal:
     types:
+      partners_partner_image: Backend\Modules\Partners\Domain\Partner\ImageDBALType
   orm:
     mappings:
+      partners_widget:
+        type: annotation
+        is_bundle: false
+        dir: %kernel.root_dir%/../src/Backend/Modules/Partners/Domain/Widget
+        alias: PartnersWidget
+        prefix: Backend\Modules\Partners\Domain\Widget
+
+      partners_partner:
+        type: annotation
+        is_bundle: false
+        dir: %kernel.root_dir%/../src/Backend/Modules/Partners/Domain/Partner
+        alias: PartnersPartner
+        prefix: Backend\Modules\Partners\Domain\Partner
