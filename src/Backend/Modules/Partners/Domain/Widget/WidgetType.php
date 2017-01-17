@@ -33,6 +33,9 @@ class WidgetType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'constraints' => [new Valid()],
+                'attr' => [
+                    'data-collection' => 'partners'
+                ]
             ]
         );
     }

@@ -1,42 +1,36 @@
-{% block partner_widget %}
+{% block partner_row %}
   <div class="panel panel-default">
     <div class="panel-heading">
-      {{ form_label(form.name) }}
+      <div class="row">
+        <div class="col-md-11">
+          <strong>{{ 'lbl.Partner'|trans|ucfirst }}</strong>
+        </div>
+        <div class="col-md-1">
+          <a href="#" class="collection-up btn btn-info pull-right"><i class="fa fa-sort-asc"></i></a>
+        </div>
+      </div>
     </div>
-    <div class="panel-body">
-      {{ form_widget(form.name) }}
-    </div>
-    {% if form.name.vars.errors|length %}
-      <div class="panel-footer">
+    <ul class="list-group">
+      <li class="list-group-item">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
         {{ form_errors(form.name) }}
-      </div>
-    {% endif %}
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      {{ form_label(form.url) }}
-    </div>
-    <div class="panel-body">
-      {{ form_widget(form.url) }}
-    </div>
-    {% if form.url.vars.errors|length %}
-      <div class="panel-footer">
+      </li>
+      <li class="list-group-item">
+        {{ form_label(form.url) }}
+        {{ form_widget(form.url) }}
         {{ form_errors(form.url) }}
-      </div>
-    {% endif %}
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      {{ form_label(form.image) }}
-    </div>
-    <div class="panel-body">
-      {{ form_widget(form.image) }}
-    </div>
-    {% if form.image.vars.errors|length %}
-      <div class="panel-footer">
+      </li>
+      <li class="list-group-item">
+        {{ form_label(form.image) }}
+        {{ form_widget(form.image) }}
         {{ form_errors(form.image) }}
-      </div>
-    {% endif %}
+      </li>
+    </ul>
+    <div class="panel-footer clearfix">
+      <a href="#" class="collection-remove btn btn-danger pull-left">{{ 'lbl.Delete'|trans|ucfirst }}</a>
+      <a href="#" class="collection-down btn btn-info pull-right"><i class="fa fa-sort-desc"></i></a>
+    </div>
   </div>
 {% endblock %}
 
@@ -59,3 +53,17 @@
     {{ form_row(form.partners) }}
   </div>
 {% endblock %}
+
+{% block collection_widget %}
+  {% spaceless %}
+    {% if prototype is defined %}
+      {% set attr = attr|merge({'data-prototype': form_row(prototype)}) %}
+      {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+    {% endif %}
+    {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
+    {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+    {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+    {{ block('form_widget') }}
+    <a href="#" data-collection="widget_partners" class="collection-action collection-rescue-add btn btn-success">{{ 'lbl.AddPartner'|trans|ucfirst }}</a>
+  {% endspaceless %}
+{% endblock collection_widget %}

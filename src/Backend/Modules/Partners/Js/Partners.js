@@ -40,36 +40,36 @@
             before_down: function (collection, element) {
                 return true;
             },
-            after_down: function (collection, element) {
+            after_down: function(collection, element) {
                 return true;
             },
             allow_add: true,
             add: '<a href="#">[ + ]</a>',
-            before_add: function (collection, element) {
+            before_add: function(collection, element) {
                 return true;
             },
-            after_add: function (collection, element) {
+            after_add: function(collection, element) {
                 return true;
             },
             allow_remove: true,
             remove: '<a href="#">[ - ]</a>',
-            before_remove: function (collection, element) {
+            before_remove: function(collection, element) {
                 return true;
             },
-            after_remove: function (collection, element) {
+            after_remove: function(collection, element) {
                 return true;
             },
             allow_duplicate: false,
             duplicate: '<a href="#">[ # ]</a>',
-            before_duplicate: function (collection, element) {
+            before_duplicate: function(collection, element) {
                 return true;
             },
-            after_duplicate: function (collection, element) {
+            after_duplicate: function(collection, element) {
                 return true;
             },
-            before_init: function (collection) {
+            before_init: function(collection) {
             },
-            after_init: function (collection) {
+            after_init: function(collection) {
             },
             min: 0,
             max: 100,
@@ -86,10 +86,10 @@
             drag_drop_options: {
                 'placeholder': 'ui-state-highlight'
             },
-            drag_drop_start: function (event, ui) {
+            drag_drop_start: function(event, ui) {
                 return true;
             },
-            drag_drop_update: function (event, ui) {
+            drag_drop_update: function(event, ui) {
                 return true;
             },
             custom_add_location: false,
@@ -106,7 +106,7 @@
          * @param value
          * @returns {boolean|*}
          */
-        var trueOrUndefined = function (value) {
+        var trueOrUndefined = function(value) {
             return undefined === value || value;
         };
 
@@ -116,7 +116,7 @@
          * @param string
          * @returns {string}
          */
-        var pregQuote = function (string) {
+        var pregQuote = function(string) {
             return (string + '').replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
         };
 
@@ -127,7 +127,7 @@
          * @param settings
          * @param isInitialization
          */
-        var dumpCollectionActions = function (collection, settings, isInitialization) {
+        var dumpCollectionActions = function(collection, settings, isInitialization) {
             var elements = collection.find(settings.elements_selector);
 
             // add rescue-add button on initialization
@@ -156,7 +156,7 @@
                 }
             }
 
-            elements.each(function () {
+            elements.each(function() {
                 var element = $(this);
 
                 // look for actions container, add if not exists
@@ -197,7 +197,7 @@
                 ];
 
                 // add buttons
-                $.each(buttons, function (i, button) {
+                $.each(buttons, function(i, button) {
                     if (button.enabled) {
                         var action = element.find('.' + button.selector);
                         if (action.length === 0 && button.html) {
@@ -210,7 +210,8 @@
                             if (settings.hide_useless_buttons) {
                                 action.css('display', '');
                             }
-                        } else {
+                        }
+                        else {
                             action.addClass(settings.prefix + '-action-disabled');
                             if (settings.hide_useless_buttons) {
                                 action.css('display', 'none');
@@ -219,7 +220,8 @@
                         action
                             .addClass(settings.prefix + '-action')
                             .data('collection', collection.attr('id'));
-                    } else {
+                    }
+                    else {
                         element.find('.' + button.selector).css('display', 'none');
                     }
                 });
@@ -232,11 +234,11 @@
          * @param collection
          * @param settings
          */
-        var setOrderValues = function (collection, settings) {
+        var setOrderValues = function(collection, settings) {
             if (settings.order_field_selector) {
                 var orderValue = 1,
                     elements = collection.find(settings.elements_selector);
-                elements.each(function (i, element) {
+                elements.each(function(i, element) {
                     $(element).find(settings.order_field_selector).val(orderValue);
                     orderValue++;
                 });
@@ -250,16 +252,17 @@
          * @param element
          * @param settings
          */
-        var enableChildrenCollections = function (collection, element, settings) {
+        var enableChildrenCollections = function(collection, element, settings) {
             if (settings.children) {
-                $.each(settings.children, function (i, childrenSettings) {
+                $.each(settings.children, function(i, childrenSettings) {
                     if (!childrenSettings.selector) {
                         console.log("jquery.collection.js: given collection " + collection.attr('id') + " has children collections, but children's root selector is undefined.");
                         return true;
                     }
                     if (element !== null) {
                         element.find(childrenSettings.selector).collection(childrenSettings);
-                    } else {
+                    }
+                    else {
                         collection.find(childrenSettings.selector).collection(childrenSettings);
                     }
                 });
@@ -278,7 +281,7 @@
          * @param isDuplicate
          * @returns {*}
          */
-        var doAdd = function (container, that, collection, settings, elements, element, isDuplicate) {
+        var doAdd = function(container, that, collection, settings, elements, element, isDuplicate) {
             if (elements.length < settings.max && (isDuplicate && trueOrUndefined(settings.before_duplicate(collection, element)) || trueOrUndefined(settings.before_add(collection, element)))) {
 
                 // increase index
@@ -305,7 +308,8 @@
                     code.hide();
                     element.after(code);
                     code.fadeIn();
-                } else { // add element to end of collection
+                }
+                else { // add element to end of collection
                     code.hide();
                     collection.append(code);
                     code.fadeIn();
@@ -329,10 +333,10 @@
          * @param element
          * @returns {*}
          */
-        var doDelete = function (collection, settings, elements, element) {
+        var doDelete = function(collection, settings, elements, element) {
             if (elements.length > settings.min && trueOrUndefined(settings.before_remove(collection, element))) {
                 var clone = element.clone();
-                element.fadeOut(function () {
+                element.fadeOut(function() {
                     $(this).remove();
                     dumpCollectionActions(collection, settings, false);
                     setOrderValues(collection, settings);
@@ -352,7 +356,7 @@
          * @param element
          * @returns {*}
          */
-        var doUp = function (collection, settings, elements, element) {
+        var doUp = function(collection, settings, elements, element) {
             if (element.prev().length && trueOrUndefined(settings.before_up(collection, element))) {
                 element.after(element.prev());
                 settings.after_up(collection, elements);
@@ -370,7 +374,7 @@
          * @param element
          * @returns {*}
          */
-        var doDown = function (collection, settings, elements, element) {
+        var doDown = function(collection, settings, elements, element) {
             if (element.next().length && trueOrUndefined(settings.before_down(collection, element))) {
                 element.before(element.next());
                 settings.after_up(collection, elements);
@@ -392,7 +396,7 @@
 
         var collections = $(this);
 
-        collections.each(function (i, collection) {
+        collections.each(function(i, collection) {
             collection = $(collection);
 
             settings.before_init(collection);
@@ -401,7 +405,8 @@
             if (!settings.prototype) {
                 if (collection.data('prototype') !== undefined) {
                     settings.prototype = collection.data('prototype');
-                } else {
+                }
+                else {
                     console.log("jquery.collection.js: given collection field has no prototype, check that your field has the prototype option set to true (in symfony form builder) or provide the prototype option yourself.");
                     return true;
                 }
@@ -438,7 +443,7 @@
             collection.data('collection-settings', settings);
 
             // add element class to all elements if not exists
-            collection.find('> div').each(function (i, element) {
+            collection.find('> div').each(function(i, element) {
                 $(element).addClass(settings.elements_selector.replace('.', ''));
             });
 
@@ -457,9 +462,10 @@
                 var newPosition;
                 if (typeof jQuery.ui === 'undefined' || typeof jQuery.ui.sortable === 'undefined') {
                     settings.drag_drop = false;
-                } else {
+                }
+                else {
                     collection.sortable($.extend(true, {}, {
-                        start: function (event, ui) {
+                        start: function(event, ui) {
                             var elements = collection.find(settings.elements_selector);
                             var element = ui.item;
                             var that = $(this);
@@ -471,7 +477,7 @@
                             ui.placeholder.width(ui.item.width());
                             oldPosition = elements.index(element);
                         },
-                        update: function (event, ui) {
+                        update: function(event, ui) {
                             var elements = collection.find(settings.elements_selector);
                             var element = ui.item;
                             var that = $(this);
@@ -492,7 +498,7 @@
             var container = $(settings.container);
             container
                 .off('click', '.' + settings.prefix + '-action')
-                .on('click', '.' + settings.prefix + '-action', function (e) {
+                .on('click', '.' + settings.prefix + '-action', function(e) {
 
                     var that = $(this);
 
@@ -540,4 +546,16 @@
         return true;
     };
 
+})(jQuery);
+
+(function($) {
+    $(function() {
+        var $partnersCollection = $('[data-collection=partners]');
+        if ($partnersCollection.length > 0) {
+            $partnersCollection.collection({
+                add_at_the_end: true,
+                custom_add_location: true
+            });
+        }
+    });
 })(jQuery);
