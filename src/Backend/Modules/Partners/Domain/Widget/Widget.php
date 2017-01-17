@@ -76,10 +76,10 @@ final class Widget
      */
     public function updateWidget()
     {
-        $editUrl = Model::createURLForAction('EditWidget', 'Partners') . '&id=' . $this->id;
+        $editUrl = Model::createURLForAction('Edit', 'Partners') . '&id=' . $this->id;
         $extras = Model::getExtras([$this->widgetId]);
         $extra = reset($extras);
-        $data = $extra['data'];
+        $data = (array) $extra['data'];
         $data['id'] = $this->id;
         $data['edit_url'] = $editUrl;
         $data['extra_label'] = $this->title;
