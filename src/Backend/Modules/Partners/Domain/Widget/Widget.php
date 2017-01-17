@@ -125,7 +125,7 @@ final class Widget
             $widget = $widgetDataTransferObject->getWidgetEntity();
 
             $widget->title = $widgetDataTransferObject->title;
-            $widget->partners = $widgetDataTransferObject = $widgetDataTransferObject->partners->map(
+            $widget->partners = $widgetDataTransferObject->partners->map(
                 function (PartnerDataTransferObject $partnerDataTransferObject) use ($widget) {
                     return Partner::fromDataTransferObject($partnerDataTransferObject, $widget);
                 }
@@ -136,7 +136,7 @@ final class Widget
 
         $widget = new self($widgetDataTransferObject->title);
 
-        $widget->partners = $widgetDataTransferObject = $widgetDataTransferObject->partners->map(
+        $widget->partners = $widgetDataTransferObject->partners->map(
             function (PartnerDataTransferObject $partnerDataTransferObject) use ($widget) {
                 return Partner::fromDataTransferObject($partnerDataTransferObject, $widget);
             }
