@@ -52,12 +52,10 @@ final class Widget
     private $partners;
 
     /**
-     * @param int $widgetId
      * @param string $title
      */
-    public function __construct($widgetId, $title)
+    public function __construct($title)
     {
-        $this->widgetId = $widgetId;
         $this->title = $title;
         $this->partners = new ArrayCollection();
     }
@@ -76,6 +74,18 @@ final class Widget
     public function deleteWidget()
     {
         Model::deleteExtraById($this->widgetId, true);
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function createWidget()
+    {
+        $this->widgetId = Model::insertExtra(
+            ModuleExtraType::widget(),
+            'Partners',
+            'Slideshow'
+        );
     }
 
     /**
@@ -131,14 +141,7 @@ final class Widget
             return $widget;
         }
 
-        $widget = new self(
-            Model::insertExtra(
-                ModuleExtraType::widget(),
-                'Partners',
-                'Slideshow'
-            ),
-            $widgetDataTransferObject->title
-        );
+        $widget = new self($widgetDataTransferObject->title);
 
         $widget->partners = $widgetDataTransferObject = $widgetDataTransferObject->partners->map(
             function (PartnerDataTransferObject $partnerDataTransferObject) use ($widget) {
