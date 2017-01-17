@@ -2,104 +2,15 @@
 
 namespace Backend\Modules\Partners\Actions;
 
-    /*
-     * This file is part of Fork CMS.
-     *
-     * For the full copyright and license information, please view the license
-     * file that was distributed with this source code.
-     */
+use Backend\Core\Engine\Base\ActionIndex;
+use Backend\Modules\Partners\Domain\Widget\WidgetDataGrid;
 
-/**
- * This is the index-action (default), it will display the overview of partners
- *
- * @author Jelmer Prins <jelmer@sumocoders.be>
- */
-use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
-use Backend\Core\Engine\DataGridDB as BackendDataGridDB;
-use Backend\Core\Engine\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Partners\Engine\Model as BackendPartnersModel;
-
-class Index extends BackendBaseActionIndex
+class Index extends ActionIndex
 {
-    /**
-     * datagrid with partners
-     *
-     * @var    SpoonDataGrid
-     */
-    private $dgWidgets;
-
-    /**
-     * Execute the action
-     */
     public function execute()
     {
         parent::execute();
-
-        $this->dgWidgets = $this->loadDataGrid();
-
-        $this->parse();
+        $this->tpl->assign('dataGrid', WidgetDataGrid::getHtml());
         $this->display();
-    }
-
-    /**
-     * Loads the datagrid with the post
-     * @return BackendDataGridDB
-     */
-    private function loadDataGrid()
-    {
-        // create datagrid
-        $dg = new BackendDataGridDB(BackendPartnersModel::QRY_DATAGRID_BROWSE_SLIDERS);
-
-        // sorting columns
-        $dg->setSortingColumns(array('name'), 'name');
-        $dg->setSortParameter('asc');
-
-        // set colum URLs
-        $dg->setColumnURL(
-            'name',
-            BackendModel::createURLForAction(
-                'edit',
-                null,
-                null,
-                array(
-                    'id' => '[id]'
-                ),
-                false
-            )
-        );
-
-        // add edit column
-        $dg->addColumn(
-            'edit',
-            null,
-            BL::lbl('Edit'),
-            BackendModel::createURLForAction(
-                'edit',
-                null,
-                null,
-                array(
-                    'id' => '[id]'
-                ),
-                false
-            ),
-            BL::lbl('Edit')
-        );
-
-        return $dg;
-    }
-
-    /**
-     * Parse datagrid
-     */
-    protected function parse()
-    {
-        // parse the datagrid for all sliders
-        if ($this->dgWidgets->getNumResults() != 0) {
-            $this->tpl->assign('dgWidgets', $this->dgWidgets->getContent());
-        }
-        if ($this->dgWidgets->getNumResults() == 0) {
-            $this->tpl->assign('noItems', true);
-        }
     }
 }

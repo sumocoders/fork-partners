@@ -1,53 +1,26 @@
 {% extends '/Layout/Templates/base.html.twig' %}
+{% form_theme form '/Partners/Layout/Templates/FormLayout.html.twig' %}
+
+{% block actionbar %}
+  <div class="btn-toolbar pull-right">
+    <div class="btn-group" role="group">
+      {% if showPartnersIndex %}
+        {{ macro.buttonIcon( geturl('Index'), 'bars', 'lbl.Partners'|trans|ucfirst) }}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
 
 {% block content %}
-  {% form edit %}
-
-    <div class="row fork-module-content">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <p>{{ 'lbl.Name'|trans|ucfirst }}
-            <abbr data-toggle="tooltip" title="{{ 'lbl.RequiredField'|trans|ucfirst }}">*</abbr></p>
-          </div>
-          <div class="panel-body">
-            {% form_field name %}
-          </div>
-          {% if txtnameError %}
-          <div class="panel-footer">
-            {% form_field_error name %}
-          </div>
-          {% endif %}
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            {{ 'lbl.Partners'|trans }}
-          </div>
-          <div class="panel-body">
-            <div class="btn-toolbar">
-              <div class="btn-group" role="group">
-                {{ macro.buttonIcon(geturl('add_partner') ~ '&id=' ~ item.id, 'plus-square', 'lbl.AddPartner'|trans|ucfirst) }}
-              </div>
-            </div>
-            <hr/>
-            {% if dgPartners %}
-              <div class="table-responsive">
-                {{ dgPartners|raw }}
-              </div>
-            {% else %}
-              <p>{{ 'msg.NoItems'|trans|ucfirst }}</p>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
-
+  {{ form_start(form) }}
+  {{ form_widget(form) }}
+  {{ form_rest(form) }}
 
   <div class="row fork-page-actions">
     <div class="col-md-12">
       <div class="btn-toolbar">
         <div class="btn-group pull-left" role="group">
-          {% if showPartnerDelete %}
+          {% if showPartnersDelete %}
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete">
               <span class="fa fa-trash-o"></span>
               {{ 'lbl.Delete'|trans|ucfirst }}
@@ -60,7 +33,7 @@
           </button>
         </div>
       </div>
-      {% if showPartnerDelete %}
+      {% if showPartnersDelete %}
         <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="{{ 'lbl.Delete'|trans|ucfirst }}" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -68,13 +41,13 @@
                 <span class="modal-title h4">{{ 'lbl.Delete'|trans|ucfirst }}</span>
               </div>
               <div class="modal-body">
-                <p>{{ 'msg.ConfirmDelete'|trans|format(title)|raw }}</p>
+                <p>{{ 'msg.ConfirmDelete'|trans|format(widget.title)|raw }}</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                   <span class="fa fa-times"></span>{{ 'lbl.Cancel'|trans|ucfirst }}
                 </button>
-                <a href="{{ geturl('delete') }}&amp;id={{ id }}" class="btn btn-danger">
+                <a href="{{ geturl('delete') }}&amp;id={{ widget.id }}" class="btn btn-danger">
                   <span class="fa fa-trash"></span>{{ 'lbl.Delete'|trans|ucfirst }}
                 </a>
               </div>
@@ -84,5 +57,5 @@
       {% endif %}
     </div>
   </div>
-  {% endform %}
+  {{ form_end(form) }}
 {% endblock %}
