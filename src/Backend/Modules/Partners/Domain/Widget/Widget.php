@@ -9,6 +9,7 @@ use Common\ModuleExtraType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Finder\Finder;
 
 /**
  * @ORM\Table(name="PartnersWidget")
@@ -17,6 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 final class Widget
 {
+    const DEFAULT_TEMPLATE = 'Slideshow.html.twig';
+
     /**
      * @var int
      *
@@ -53,11 +56,20 @@ final class Widget
     private $partners;
 
     /**
-     * @param string $title
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, options={"default" = "Slideshow.html.twig"})
      */
-    public function __construct($title)
+    private $template = 'Slideshow.html.twig';
+
+    /**
+     * @param string $title
+     * @param string $template
+     */
+    public function __construct($title, $template)
     {
         $this->title = $title;
+        $this->template = $template;
         $this->partners = new ArrayCollection();
     }
 
@@ -94,6 +106,7 @@ final class Widget
         $data['id'] = $this->id;
         $data['edit_url'] = $editUrl;
         $data['extra_label'] = $this->title;
+        $data['custom_template'] = $this->template;
 
         Model::updateExtra($this->widgetId, 'data', $data);
     }
@@ -115,6 +128,14 @@ final class Widget
     }
 
     /**
+     * @return string
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
      * @param WidgetDataTransferObject $widgetDataTransferObject
      *
      * @return Widget
@@ -125,6 +146,7 @@ final class Widget
             $widget = $widgetDataTransferObject->getWidgetEntity();
 
             $widget->title = $widgetDataTransferObject->title;
+            $widget->template = $widgetDataTransferObject->template;
             $widget->partners = $widgetDataTransferObject->partners->map(
                 function (PartnerDataTransferObject $partnerDataTransferObject) use ($widget) {
                     return Partner::fromDataTransferObject($partnerDataTransferObject, $widget);
@@ -134,7 +156,7 @@ final class Widget
             return $widget;
         }
 
-        $widget = new self($widgetDataTransferObject->title);
+        $widget = new self($widgetDataTransferObject->title, $widgetDataTransferObject->template);
 
         $widget->partners = $widgetDataTransferObject->partners->map(
             function (PartnerDataTransferObject $partnerDataTransferObject) use ($widget) {
@@ -143,6 +165,31 @@ final class Widget
         );
 
         return $widget;
+    }
+
+    /**
+     * Get templates.
+     *
+     * @return array
+     */
+    public static function getTemplates()
+    {
+        $templates = array();
+        $finder = new Finder();
+        $finder->name('*.html.twig');
+        $finder->in(FRONTEND_MODULES_PATH . '/Partners/Layout/Widgets');
+        // if there is a custom theme we should include the templates there also
+        $theme = Model::get('fork.settings')->get('Core', 'theme', 'core');
+        if ($theme != 'core') {
+            $path = FRONTEND_PATH . '/Themes/' . $theme . '/Modules/Partners/Layout/Widgets';
+            if (is_dir($path)) {
+                $finder->in($path);
+            }
+        }
+        foreach ($finder->files() as $file) {
+            $templates[] = $file->getBasename();
+        }
+        return array_unique($templates);
     }
 
     /**

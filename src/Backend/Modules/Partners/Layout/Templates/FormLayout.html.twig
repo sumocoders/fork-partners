@@ -51,6 +51,20 @@
       {% endif %}
     </div>
 
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{ form_label(form.template) }}
+      </div>
+      <div class="panel-body">
+        {{ form_widget(form.template) }}
+      </div>
+      {% if form.template.vars.errors|length %}
+        <div class="panel-footer">
+          {{ form_errors(form.template) }}
+        </div>
+      {% endif %}
+    </div>
+
     {{ form_row(form.partners) }}
   </div>
 {% endblock %}
