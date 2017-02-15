@@ -138,10 +138,15 @@ final class Widget
     public function getTemplatePath()
     {
         $theme = Model::get('fork.settings')->get('Core', 'theme', 'core');
-        
+
         $path = FRONTEND_MODULES_PATH . '/Partners/Layout/Widgets/' . $this->getTemplate();
+        
         if ($theme != 'core' && file_exists(FRONTEND_PATH . '/Themes/' . $theme . '/Modules/Partners/Layout/Widgets/' . $this->getTemplate())) {
             $path = FRONTEND_PATH . '/Themes/' . $theme . '/Modules/Partners/Layout/Widgets/' . $this->getTemplate();
+        }
+
+        if (!file_exists($path)) {
+            $path = FRONTEND_MODULES_PATH . '/Partners/Layout/Widgets/Slideshow.html.twig';
         }
 
         return $path;
