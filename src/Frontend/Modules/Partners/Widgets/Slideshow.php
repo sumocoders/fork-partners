@@ -2,17 +2,26 @@
 
 namespace Frontend\Modules\Partners\Widgets;
 
+use Backend\Modules\Partners\Domain\Widget\Widget;
 use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
+use Frontend\Core\Engine\Theme;
 
 class Slideshow extends FrontendBaseWidget
 {
     public function execute()
     {
         parent::execute();
-        $this->loadTemplate();
+
+        /** @var Widget $widget */
+        $widget = $this->get('partners.repository.widget')->find($this->data['id']);
+
+        $template = Theme::getPath($widget->getTemplatePath());
+        $this->loadTemplate($template);
+
+
         $this->tpl->assign(
             'partners',
-            $this->get('partners.repository.widget')->find($this->data['id'])->getPartners()
+            $widget->getPartners()
         );
     }
 }

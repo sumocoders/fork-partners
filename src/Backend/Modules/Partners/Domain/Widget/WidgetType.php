@@ -4,6 +4,7 @@ namespace Backend\Modules\Partners\Domain\Widget;
 
 use Backend\Modules\Partners\Domain\Partner\PartnerType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,6 +26,13 @@ class WidgetType extends AbstractType
                 'label' => 'lbl.Title',
             ]
         )->add(
+            'template',
+            ChoiceType::class,
+            [
+                'choices' => array_combine(Widget::getTemplates(), Widget::getTemplates()),
+            ]
+        )
+        ->add(
             'partners',
             CollectionType::class,
             [
