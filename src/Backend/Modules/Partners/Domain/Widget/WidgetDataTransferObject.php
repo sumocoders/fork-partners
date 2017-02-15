@@ -28,6 +28,13 @@ class WidgetDataTransferObject
     public $partners;
 
     /**
+     * @var string
+     *
+     * @Assert\NotBlank(message="err.FieldIsRequired")
+     */
+    public $template;
+
+    /**
      * @param Widget|null $widget
      */
     public function __construct(Widget $widget = null)
@@ -41,6 +48,7 @@ class WidgetDataTransferObject
         }
 
         $this->title = $widget->getTitle();
+        $this->template = $widget->getTemplate();
         $this->partners = $widget->getPartners()->map(
             function (Partner $partner) {
                 return new PartnerDataTransferObject($partner);
