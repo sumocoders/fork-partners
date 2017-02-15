@@ -32,7 +32,7 @@ class WidgetDataTransferObject
      *
      * @Assert\NotBlank(message="err.FieldIsRequired")
      */
-    public $template;
+    public $template = Widget::DEFAULT_TEMPLATE;
 
     /**
      * @param Widget|null $widget
