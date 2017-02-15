@@ -16,7 +16,8 @@ class Add extends ActionAdd
     {
         parent::execute();
         $createWidget = new CreateWidget();
-        $form = $this->createForm(WidgetType::class, $createWidget);
+        $theme = $this->get('fork.settings')->get('Core', 'theme', 'core');
+        $form = $this->createForm(new WidgetType($theme), $createWidget);
         $form->handleRequest($this->get('request'));
         if (!$form->isValid()) {
             $this->tpl->assign('form', $form->createView());

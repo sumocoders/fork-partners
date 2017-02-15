@@ -22,7 +22,9 @@ class Edit extends ActionEdit
         }
 
         $editWidget = new UpdateWidget($widget);
-        $form = $this->createForm(WidgetType::class, $editWidget);
+
+        $theme = $this->get('fork.settings')->get('Core', 'theme', 'core');
+        $form = $this->createForm(new WidgetType($theme), $editWidget);
 
         $form->handleRequest($this->get('request'));
         if (!$form->isValid()) {

@@ -2,7 +2,6 @@
 
 namespace Backend\Modules\Partners\Domain\Widget;
 
-use Backend\Core\Engine\Model;
 use Backend\Modules\Partners\Domain\Partner\PartnerType;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\AbstractType;
@@ -15,6 +14,17 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 class WidgetType extends AbstractType
 {
+    /** @var string */
+    private $theme;
+
+    /**
+     * @param string $theme
+     */
+    public function __construct($theme)
+    {
+        $this->theme = $theme;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -83,7 +93,7 @@ class WidgetType extends AbstractType
         $finder->name('*.html.twig');
         $finder->in(FRONTEND_MODULES_PATH . '/Partners/Layout/Widgets');
         // if there is a custom theme we should include the templates there also
-        $theme = Model::get('fork.settings')->get('Core', 'theme', 'core');
+        $theme = $this->theme;
         if ($theme != 'core') {
             $path = FRONTEND_PATH . '/Themes/' . $theme . '/Modules/Partners/Layout/Widgets';
             if (is_dir($path)) {
@@ -93,7 +103,7 @@ class WidgetType extends AbstractType
         foreach ($finder->files() as $file) {
             $templates[] = $file->getBasename();
         }
-        
+
         return array_combine($templates, $templates);
     }
 }
