@@ -168,31 +168,6 @@ final class Widget
     }
 
     /**
-     * Get templates.
-     *
-     * @return array
-     */
-    public static function getTemplates()
-    {
-        $templates = array();
-        $finder = new Finder();
-        $finder->name('*.html.twig');
-        $finder->in(FRONTEND_MODULES_PATH . '/Partners/Layout/Widgets');
-        // if there is a custom theme we should include the templates there also
-        $theme = Model::get('fork.settings')->get('Core', 'theme', 'core');
-        if ($theme != 'core') {
-            $path = FRONTEND_PATH . '/Themes/' . $theme . '/Modules/Partners/Layout/Widgets';
-            if (is_dir($path)) {
-                $finder->in($path);
-            }
-        }
-        foreach ($finder->files() as $file) {
-            $templates[] = $file->getBasename();
-        }
-        return array_unique($templates);
-    }
-
-    /**
      * @return Partner[]|Collection
      */
     public function getPartners()

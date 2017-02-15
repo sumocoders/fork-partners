@@ -51,19 +51,21 @@
       {% endif %}
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        {{ form_label(form.template) }}
-      </div>
-      <div class="panel-body">
-        {{ form_widget(form.template) }}
-      </div>
-      {% if form.template.vars.errors|length %}
-        <div class="panel-footer">
-          {{ form_errors(form.template) }}
+    {% if form.template is defined %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          {{ form_label(form.template) }}
         </div>
-      {% endif %}
-    </div>
+        <div class="panel-body">
+          {{ form_widget(form.template) }}
+        </div>
+        {% if form.template.vars.errors|length %}
+          <div class="panel-footer">
+            {{ form_errors(form.template) }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
 
     {{ form_row(form.partners) }}
   </div>
