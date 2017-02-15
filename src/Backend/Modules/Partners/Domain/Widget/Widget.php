@@ -9,7 +9,6 @@ use Common\ModuleExtraType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Finder\Finder;
 
 /**
  * @ORM\Table(name="PartnersWidget")
