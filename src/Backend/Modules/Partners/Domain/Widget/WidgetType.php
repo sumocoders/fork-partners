@@ -3,7 +3,10 @@
 namespace Backend\Modules\Partners\Domain\Widget;
 
 use Backend\Modules\Partners\Domain\Partner\PartnerType;
+use Common\ModulesSettings;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,6 +15,17 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 class WidgetType extends AbstractType
 {
+    /** @var string */
+    private $theme;
+
+    /**
+     * @param ModulesSettings $modulesSettings
+     */
+    public function __construct(ModulesSettings $modulesSettings)
+    {
+        $this->theme = $modulesSettings->get('Core', 'theme', 'core');
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -38,6 +52,21 @@ class WidgetType extends AbstractType
                 ]
             ]
         );
+
+        $templates = $this->getPossibleTemplates();
+        // if we have multiple templates, add a dropdown to select them
+        if (count($templates) > 1) {
+            $builder->add(
+                'template',
+                ChoiceType::class,
+                [
+                    'required' => true,
+                    'label' => 'lbl.Template',
+                    'choices' => $templates,
+                    'choice_translation_domain' => false,
+                ]
+            );
+        }
     }
 
     /**
@@ -51,5 +80,31 @@ class WidgetType extends AbstractType
                 'error_bubbling' => false,
             ]
         );
+    }
+
+    /**
+     * Get templates.
+     *
+     * @return array
+     */
+    private function getPossibleTemplates()
+    {
+        $templates = array();
+        $finder = new Finder();
+        $finder->name('*.html.twig');
+        $finder->in(FRONTEND_MODULES_PATH . '/Partners/Layout/Widgets');
+        // if there is a custom theme we should include the templates there also
+        $theme = $this->theme;
+        if ($theme != 'core') {
+            $path = FRONTEND_PATH . '/Themes/' . $theme . '/Modules/Partners/Layout/Widgets';
+            if (is_dir($path)) {
+                $finder->in($path);
+            }
+        }
+        foreach ($finder->files() as $file) {
+            $templates[] = $file->getBasename();
+        }
+
+        return array_combine($templates, $templates);
     }
 }

@@ -23,3 +23,9 @@ services:
       - "@partners.repository.widget"
     tags:
       - { name: command_handler, handles: Backend\Modules\Partners\Domain\Widget\Command\DeleteWidget }
+  partners.widget.form_type:
+    class: Backend\Modules\Partners\Domain\Widget\WidgetType
+    arguments:
+      - "@fork.settings"
+    tags:
+        - { name:form.type }

@@ -17,6 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 final class Widget
 {
+    const DEFAULT_TEMPLATE = 'Slideshow.html.twig';
+
     /**
      * @var int
      *
@@ -53,11 +55,20 @@ final class Widget
     private $partners;
 
     /**
-     * @param string $title
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, options={"default" = "Slideshow.html.twig"})
      */
-    public function __construct($title)
+    private $template = 'Slideshow.html.twig';
+
+    /**
+     * @param string $title
+     * @param string $template
+     */
+    public function __construct($title, $template)
     {
         $this->title = $title;
+        $this->template = $template;
         $this->partners = new ArrayCollection();
     }
 
@@ -94,6 +105,7 @@ final class Widget
         $data['id'] = $this->id;
         $data['edit_url'] = $editUrl;
         $data['extra_label'] = $this->title;
+        $data['custom_template'] = $this->template;
 
         Model::updateExtra($this->widgetId, 'data', $data);
     }
@@ -115,6 +127,14 @@ final class Widget
     }
 
     /**
+     * @return string
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
      * @param WidgetDataTransferObject $widgetDataTransferObject
      *
      * @return Widget
@@ -125,6 +145,7 @@ final class Widget
             $widget = $widgetDataTransferObject->getWidgetEntity();
 
             $widget->title = $widgetDataTransferObject->title;
+            $widget->template = $widgetDataTransferObject->template;
             $widget->partners = $widgetDataTransferObject->partners->map(
                 function (PartnerDataTransferObject $partnerDataTransferObject) use ($widget) {
                     return Partner::fromDataTransferObject($partnerDataTransferObject, $widget);
@@ -134,7 +155,7 @@ final class Widget
             return $widget;
         }
 
-        $widget = new self($widgetDataTransferObject->title);
+        $widget = new self($widgetDataTransferObject->title, $widgetDataTransferObject->template);
 
         $widget->partners = $widgetDataTransferObject->partners->map(
             function (PartnerDataTransferObject $partnerDataTransferObject) use ($widget) {
