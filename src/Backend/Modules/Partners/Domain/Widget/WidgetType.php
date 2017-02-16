@@ -3,6 +3,7 @@
 namespace Backend\Modules\Partners\Domain\Widget;
 
 use Backend\Modules\Partners\Domain\Partner\PartnerType;
+use Common\ModulesSettings;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -18,11 +19,11 @@ class WidgetType extends AbstractType
     private $theme;
 
     /**
-     * @param string $theme
+     * @param ModulesSettings $modulesSettings
      */
-    public function __construct($theme)
+    public function __construct(ModulesSettings $modulesSettings)
     {
-        $this->theme = $theme;
+        $this->theme = $modulesSettings->get('Core', 'theme', 'core');
     }
 
     /**
