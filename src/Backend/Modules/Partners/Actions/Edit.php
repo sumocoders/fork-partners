@@ -22,7 +22,6 @@ class Edit extends ActionEdit
         }
 
         $editWidget = new UpdateWidget($widget);
-
         $form = $this->createForm(WidgetType::class, $editWidget);
 
         $form->handleRequest($this->get('request'));
