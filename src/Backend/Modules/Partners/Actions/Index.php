@@ -7,10 +7,10 @@ use Backend\Modules\Partners\Domain\Widget\WidgetDataGrid;
 
 class Index extends ActionIndex
 {
-    public function execute()
+    public function execute(): void
     {
         parent::execute();
-        $this->tpl->assign('dataGrid', WidgetDataGrid::getHtml());
+        $this->template->assign('dataGrid', WidgetDataGrid::getHtml());
         $this->display();
     }
 }

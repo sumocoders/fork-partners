@@ -22,7 +22,7 @@ class Image extends AbstractImage
     /**
      * @return string
      */
-    protected function getUploadDir()
+    protected function getUploadDir(): string
     {
         return 'Partners/Partner/Image';
     }

@@ -3,22 +3,15 @@
 namespace Backend\Modules\Partners\Domain\Partner;
 
 use Common\Doctrine\Type\AbstractFileType;
+use Common\Doctrine\ValueObject\AbstractFile;
 
 class ImageDBALType extends AbstractFileType
 {
-    /**
-     * @param string $fileName
-     *
-     * @return Image
-     */
-    protected function createFromString($fileName)
+    protected function createFromString(string $fileName): AbstractFile
     {
         return Image::fromString($fileName);
     }
 
-    /**
-     * @return string
-     */
     public function getName()
     {
         return 'partners_partner_image';

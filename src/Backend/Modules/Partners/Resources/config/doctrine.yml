@@ -7,13 +7,13 @@ doctrine:
       partners_widget:
         type: annotation
         is_bundle: false
-        dir: %kernel.root_dir%/../src/Backend/Modules/Partners/Domain/Widget
+        dir: "%kernel.root_dir%/../src/Backend/Modules/Partners/Domain/Widget"
         alias: PartnersWidget
         prefix: Backend\Modules\Partners\Domain\Widget
 
       partners_partner:
         type: annotation
         is_bundle: false
-        dir: %kernel.root_dir%/../src/Backend/Modules/Partners/Domain/Partner
+        dir: "%kernel.root_dir%/../src/Backend/Modules/Partners/Domain/Partner"
         alias: PartnersPartner
         prefix: Backend\Modules\Partners\Domain\Partner
