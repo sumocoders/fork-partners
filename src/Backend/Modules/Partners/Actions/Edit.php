@@ -19,6 +19,7 @@ class Edit extends ActionEdit
 
         if (!$widget instanceof Widget) {
             $this->redirect(Model::createURLForAction('Index', null, null, ['error' => 'non-existing']));
+            return;
         }
 
         $editWidget = new UpdateWidget($widget);
@@ -47,5 +48,6 @@ class Edit extends ActionEdit
                 ]
             )
         );
+        return;
     }
 }

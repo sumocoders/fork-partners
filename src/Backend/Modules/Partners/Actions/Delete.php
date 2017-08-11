@@ -24,6 +24,7 @@ class Delete extends ActionDelete
                     ['error' => 'non-existing']
                 )
             );
+            return;
         }
         $this->get('command_bus')->handle(new DeleteWidget($widget));
 
@@ -38,5 +39,6 @@ class Delete extends ActionDelete
                 ]
             )
         );
+        return;
     }
 }
