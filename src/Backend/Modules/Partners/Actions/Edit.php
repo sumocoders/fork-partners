@@ -10,24 +10,25 @@ use Backend\Modules\Partners\Domain\Widget\WidgetType;
 
 class Edit extends ActionEdit
 {
-    public function execute()
+    public function execute(): void
     {
         parent::execute();
         $widget = $this->get('partners.repository.widget')->find(
-            $this->getParameter('id', 'int')
+            $this->getRequest()->query->getInt('id')
         );
 
         if (!$widget instanceof Widget) {
-            return $this->redirect(Model::createURLForAction('Index', null, null, ['error' => 'non-existing']));
+            $this->redirect(Model::createURLForAction('Index', null, null, ['error' => 'non-existing']));
+            return;
         }
 
         $editWidget = new UpdateWidget($widget);
         $form = $this->createForm(WidgetType::class, $editWidget);
 
-        $form->handleRequest($this->get('request'));
+        $form->handleRequest($this->getRequest());
         if (!$form->isValid()) {
-            $this->tpl->assign('form', $form->createView());
-            $this->tpl->assign('widget', $widget);
+            $this->template->assign('form', $form->createView());
+            $this->template->assign('widget', $widget);
 
             $this->display();
 
@@ -36,7 +37,7 @@ class Edit extends ActionEdit
 
         $this->get('command_bus')->handle($form->getData());
 
-        return $this->redirect(
+        $this->redirect(
             Model::createURLForAction(
                 'Index',
                 null,
@@ -47,5 +48,6 @@ class Edit extends ActionEdit
                 ]
             )
         );
+        return;
     }
 }

@@ -12,21 +12,21 @@ use Backend\Modules\Partners\Domain\Widget\WidgetType;
 
 class Add extends ActionAdd
 {
-    public function execute()
+    public function execute(): void
     {
         parent::execute();
         $createWidget = new CreateWidget();
         $form = $this->createForm(WidgetType::class, $createWidget);
-        $form->handleRequest($this->get('request'));
+        $form->handleRequest($this->getRequest());
         if (!$form->isValid()) {
-            $this->tpl->assign('form', $form->createView());
+            $this->template->assign('form', $form->createView());
             $this->display();
 
             return;
         }
         $this->get('command_bus')->handle($form->getData());
 
-        return $this->redirect(
+        $this->redirect(
             Model::createURLForAction(
                 'Index',
                 null,

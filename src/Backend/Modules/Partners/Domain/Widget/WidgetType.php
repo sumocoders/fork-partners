@@ -43,7 +43,7 @@ class WidgetType extends AbstractType
             CollectionType::class,
             [
                 'label' => 'lbl.Partners',
-                'type' => PartnerType::class,
+                'entry_type' => PartnerType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'constraints' => [new Valid()],

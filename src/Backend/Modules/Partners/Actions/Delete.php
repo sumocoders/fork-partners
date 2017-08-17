@@ -9,18 +9,26 @@ use Backend\Modules\Partners\Domain\Widget\Command\DeleteWidget;
 
 class Delete extends ActionDelete
 {
-    public function execute()
+    public function execute(): void
     {
         $widget = $this->get('partners.repository.widget')->find(
-            $this->getParameter('id', 'int')
+            $this->getRequest()->query->getInt('id')
         );
 
         if (!$widget instanceof Widget) {
-            return $this->redirect(Model::createURLForAction('Index', null, null, ['error' => 'non-existing']));
+            $this->redirect(
+                Model::createURLForAction(
+                    'Index',
+                    null,
+                    null,
+                    ['error' => 'non-existing']
+                )
+            );
+            return;
         }
         $this->get('command_bus')->handle(new DeleteWidget($widget));
 
-        return $this->redirect(
+        $this->redirect(
             Model::createURLForAction(
                 'Index',
                 null,
@@ -31,5 +39,6 @@ class Delete extends ActionDelete
                 ]
             )
         );
+        return;
     }
 }

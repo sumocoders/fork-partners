@@ -6,10 +6,10 @@ use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
 
 class Slideshow extends FrontendBaseWidget
 {
-    public function execute()
+    public function execute(): void
     {
         parent::execute();
-        $this->tpl->assign(
+        $this->template->assign(
             'partners',
             $this->get('partners.repository.widget')->find($this->data['id'])->getPartners()
         );
