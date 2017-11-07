@@ -4,7 +4,7 @@ namespace Frontend\Modules\Partners\Widgets;
 
 use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
 
-class Slideshow extends FrontendBaseWidget
+class Partners extends FrontendBaseWidget
 {
     public function execute(): void
     {

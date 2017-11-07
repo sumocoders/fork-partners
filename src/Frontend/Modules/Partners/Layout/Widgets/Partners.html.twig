@@ -1,0 +1,17 @@
+{#
+  variables that are available:
+  - {partners}
+#}
+<section id="partnersPartnersWidget" class="partners partners-widget">
+  <div class="row align-items-center">
+    {% if partners %}
+      {% for partner in partners %}
+        <div class="col-4">
+          <a href="{{ partner.url }}" target="_blank" class="partner d-block mb-4">
+            <img src="{{ partner.image.webPath('source') }}" alt="{{ partner.name }}" />
+          </a>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>

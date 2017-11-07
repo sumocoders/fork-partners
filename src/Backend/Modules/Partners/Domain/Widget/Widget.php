@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 final class Widget
 {
-    const DEFAULT_TEMPLATE = 'Slideshow.html.twig';
+    const DEFAULT_TEMPLATE = 'Partners.html.twig';
 
     /**
      * @var int
@@ -57,9 +57,9 @@ final class Widget
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, options={"default" = "Slideshow.html.twig"})
+     * @ORM\Column(type="string", length=255, options={"default" = "Partners.html.twig"})
      */
-    private $template = 'Slideshow.html.twig';
+    private $template = 'Partners.html.twig';
 
     /**
      * @param string $title
@@ -88,7 +88,7 @@ final class Widget
         $this->widgetId = Model::insertExtra(
             ModuleExtraType::widget(),
             'Partners',
-            'Slideshow'
+            'Partners'
         );
     }
 
