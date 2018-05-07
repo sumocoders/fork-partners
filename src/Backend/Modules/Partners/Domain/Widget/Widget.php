@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="WidgetRepository")
  * @ORM\HasLifecycleCallbacks
  */
-final class Widget
+class Widget
 {
     const DEFAULT_TEMPLATE = 'Partners.html.twig';
 
