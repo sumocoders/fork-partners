@@ -146,11 +146,12 @@ final class Widget
 
             $widget->title = $widgetDataTransferObject->title;
             $widget->template = $widgetDataTransferObject->template;
-            $widget->partners = $widgetDataTransferObject->partners->map(
-                function (PartnerDataTransferObject $partnerDataTransferObject) use ($widget) {
-                    return Partner::fromDataTransferObject($partnerDataTransferObject, $widget);
-                }
-            );
+            $widget->partners->clear();
+
+            /** @var PartnerDataTransferObject $partnerDataTransferObject */
+            foreach ($widgetDataTransferObject->partners as $partnerDataTransferObject) {
+                $widget->partners->add(Partner::fromDataTransferObject($partnerDataTransferObject, $widget));
+            }
 
             return $widget;
         }
